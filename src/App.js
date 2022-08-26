@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Card } from './components';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [characters, setCharacters] = useState([]);
+  const [idCharacter, setIdCharacter] = useState(1);
+
   // Fetch basado en resultados
   // const handleClick = () => {
   //   fetch('https://rickandmortyapi.com/api/character')
@@ -39,7 +42,19 @@ const App = () => {
   useEffect(() => {
     getCharacters();
   }, []);
-  console.log(characters);
+  console.log('personajes obtenidos: ', characters);
+  // console.log('personaje clickeado: ', idCharacter);
+  const getIdCharacter = (id) => {
+    setIdCharacter(id);
+  };
+  const getCharacterById = async () => {
+    const { data } = await axios(`https://rickandmortyapi.com/api/character/${idCharacter}`);
+    console.log('personaje clickeado: ', data);
+  };
+  useEffect(() => {
+    getCharacterById();
+  }, [idCharacter]);
+
   return (
     <div className="App">
       {
@@ -49,9 +64,20 @@ const App = () => {
         isLoading && <p>Loading...</p>
       }
       <button onClick={handleClick} disabled={isLoading}>Obtener Personajes</button>
-      {
-        characters?.map(character => <p key={character.id}>{character.name}</p>)
-      }
+      <div className="container-fluid">
+        <div className="row">
+          {
+            // characters?.map(character => <p key={character.id}>{character.name}</p>)
+            characters?.map(character => (
+            <Card
+              character={character}
+              key={character.id}
+              getIdCharacter={getIdCharacter}
+            />
+            ))
+          }
+          </div>
+        </div>
     </div>
   );
 };
