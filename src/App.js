@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Card } from './components';
+import useFetch from './hooks/CustomFetch/useFetch';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [idCharacter, setIdCharacter] = useState(1);
+
+  const url = 'https://rickandmortyapi.com/api/character';
+  const response = useFetch(url);
+  console.log('useFetch: ', response.data?.results);
+  // setCharacters(response.data?.results);
 
   // Fetch basado en resultados
   // const handleClick = () => {
@@ -27,21 +33,28 @@ const App = () => {
   // };
   // Spinner de carga al hacer click
   const handleClick = async () => {
-    setIsLoading(true);
-    const { data } = await axios('https://rickandmortyapi.com/api/character');
-    setCharacters(data.results);
-    setIsLoading(false);
+    // setIsLoading(true);
+    // const { data } = await axios('https://rickandmortyapi.com/api/character');
+    // setCharacters(data.results);
+    // setIsLoading(false);
   };
   // Consumo la API al cargar la pagina
-  const getCharacters = async () => {
-    setIsLoading(true);
-    const { data } = await axios('https://rickandmortyapi.com/api/character');
-    setCharacters(data.results);
-    setIsLoading(false);
-  };
-  useEffect(() => {
-    getCharacters();
-  }, []);
+  // const getCharacters = async () => {
+  //   setIsLoading(true);
+    // const { data } = await axios('https://rickandmortyapi.com/api/character');
+    // Custom hook
+    // const url = 'https://rickandmortyapi.com/api/character';
+    // const { data } = await useFetch(url);
+    // console.log('useFetch: ', data);
+    // const url = 'https://rickandmortyapi.com/api/character';
+    // const response = useFetch(url);
+    // console.log('useFetch: ', response);
+    // setCharacters(data.results);
+  //   setIsLoading(false);
+  // };
+  // useEffect(() => {
+  //   getCharacters();
+  // }, []);
   console.log('personajes obtenidos: ', characters);
   // console.log('personaje clickeado: ', idCharacter);
   const getIdCharacter = (id) => {
