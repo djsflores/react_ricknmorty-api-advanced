@@ -9,8 +9,10 @@ const App = () => {
   const [idCharacter, setIdCharacter] = useState(1);
 
   const url = 'https://rickandmortyapi.com/api/character';
-  const response = useFetch(url);
-  console.log('useFetch: ', response.data?.results);
+  // const response = useFetch(url);
+  // console.log('useFetch: ', response.data?.results);
+  const { data } = useFetch(url);
+  console.log('useFetch: ', data);
   // setCharacters(response.data?.results);
 
   // Fetch basado en resultados
@@ -39,8 +41,8 @@ const App = () => {
     // setIsLoading(false);
   };
   // Consumo la API al cargar la pagina
-  // const getCharacters = async () => {
-  //   setIsLoading(true);
+  const getCharacters = () => {
+    setIsLoading(true);
     // const { data } = await axios('https://rickandmortyapi.com/api/character');
     // Custom hook
     // const url = 'https://rickandmortyapi.com/api/character';
@@ -50,19 +52,20 @@ const App = () => {
     // const response = useFetch(url);
     // console.log('useFetch: ', response);
     // setCharacters(data.results);
-  //   setIsLoading(false);
-  // };
-  // useEffect(() => {
-  //   getCharacters();
-  // }, []);
+    setCharacters(data);
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    getCharacters();
+  }, [data]);
   console.log('personajes obtenidos: ', characters);
   // console.log('personaje clickeado: ', idCharacter);
   const getIdCharacter = (id) => {
     setIdCharacter(id);
   };
   const getCharacterById = async () => {
-    const { data } = await axios(`https://rickandmortyapi.com/api/character/${idCharacter}`);
-    console.log('personaje clickeado: ', data);
+    // const { data } = await axios(`https://rickandmortyapi.com/api/character/${idCharacter}`);
+    // console.log('personaje clickeado: ', data);
   };
   useEffect(() => {
     getCharacterById();
