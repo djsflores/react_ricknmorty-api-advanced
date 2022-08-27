@@ -14,7 +14,7 @@ const useFetch = (url) => {
       setDataFetch({
         loading: false,
         error: null,
-        data: resp.data,
+        data: resp.data.results,
       });
     } catch (error) {
       setDataFetch({
@@ -26,6 +26,13 @@ const useFetch = (url) => {
   };
   useEffect(() => {
     handleFetch();
+    // fetch(url)
+    //   .then(resp => resp.json())
+    //   .then(data => setDataFetch({
+    //     loading: false,
+    //     error: null,
+    //     data: data.results,
+    //   }));
   }, [url]);
   return dataFetch;
 };
