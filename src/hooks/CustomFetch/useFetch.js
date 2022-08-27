@@ -7,14 +7,14 @@ const useFetch = (url) => {
     error: null,
     data: null,
   });
+
   const handleFetch = async () => {
     try {
-      const resp = await axios(url);
-      console.log('custom fetch: ', resp);
+      const { data } = await axios(url);
       setDataFetch({
         loading: false,
         error: null,
-        data: resp.data.results,
+        data: data.results,
       });
     } catch (error) {
       setDataFetch({
@@ -24,16 +24,11 @@ const useFetch = (url) => {
       });
     }
   };
+
   useEffect(() => {
     handleFetch();
-    // fetch(url)
-    //   .then(resp => resp.json())
-    //   .then(data => setDataFetch({
-    //     loading: false,
-    //     error: null,
-    //     data: data.results,
-    //   }));
   }, [url]);
+
   return dataFetch;
 };
 
