@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card } from './components';
+import { Card } from './components/Card';
+import { Header } from './components/Header';
 import useFetch from './hooks/CustomFetch/useFetch';
 import { ThemeProvider } from './providers/ThemeProvider';
 
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <div className="App">
+        <Header />
         {
           dataPersonajes.loading && <p>Loading...</p>
         }
